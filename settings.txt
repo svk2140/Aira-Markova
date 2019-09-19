@@ -1,0 +1,1 @@
+keySize=1,messageInterval=10,outputWordsMax=20
