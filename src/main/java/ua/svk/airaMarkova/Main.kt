@@ -55,7 +55,7 @@ fun initCommands()
 
 fun loadSettings()
 {
-    Files.readString(settings, Charsets.UTF_8).split(",").forEach {
+    String(Files.readAllBytes(settings), Charsets.UTF_8).split(",").forEach {
         val data = it.split("=")
         when(data[0])
         {
