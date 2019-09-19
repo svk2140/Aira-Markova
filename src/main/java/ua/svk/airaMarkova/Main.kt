@@ -1,3 +1,5 @@
+package ua.svk.airaMarkova
+
 import com.google.gson.JsonParser
 import com.vk.api.sdk.client.VkApiClient
 import com.vk.api.sdk.client.actors.GroupActor
@@ -23,7 +25,7 @@ var outputWordsMax = 20
 lateinit var vk: VkApiClient
 lateinit var gActor: GroupActor
 
-fun main()
+fun main(args: Array<String>)
 {
     loadSettings()
     initCommands()
