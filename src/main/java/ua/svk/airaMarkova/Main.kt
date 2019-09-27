@@ -127,9 +127,9 @@ fun initVk()
     }
     catch (t: Throwable)
     {
+        t.printStackTrace()
         Thread.sleep(10000)
         initVk()
-        t.printStackTrace()
     }
 }
 
