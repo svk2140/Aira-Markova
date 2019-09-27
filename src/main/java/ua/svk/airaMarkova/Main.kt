@@ -15,12 +15,14 @@ val jsonParser = JsonParser()
 val data = Paths.get("data.txt")
 val settings = Paths.get("settings.txt")
 var counter = 0
-val regexCommand = Regex("\\[club186622167|.+\\] \\/")
+val regexCommand = Regex("Aira \\/")
 val rand = Random()
 
 var keySize = 1
 var messageInterval = 10
 var outputWordsMax = 20
+var groupId = 0
+lateinit var token: String
 
 lateinit var vk: VkApiClient
 lateinit var gActor: GroupActor
@@ -50,6 +52,13 @@ fun initCommands()
         sendMessage(markov(), cId)
     }
 
+    commands["info"] = { text, cId ->
+        sendMessage("Database: ${String(Files.readAllBytes(data)).split(" ").size} words\n" +
+                "keySize: $keySize\n" +
+                "outputWordsMax: $outputWordsMax\n" +
+                "messageInterval: $messageInterval", cId)
+    }
+
     commands["help"] = { text, cId ->
         sendMessage(commands.keys.joinToString(", "), cId)
     }
@@ -64,6 +73,8 @@ fun loadSettings()
             "keySize" -> keySize = data[1].toInt()
             "messageInterval" -> messageInterval = data[1].toInt()
             "outputWordsMax" -> outputWordsMax = data[1].toInt()
+            "groupId" -> groupId = data[1].toInt()
+            "token" -> token = data[1]
         }
     }
 }
@@ -78,7 +89,7 @@ fun initVk()
     try
     {
         vk = VkApiClient(HttpTransportClient())
-        gActor = GroupActor(0, null)//You key and you id
+        gActor = GroupActor(groupId, token)
 
         var lps = vk.groups().getLongPollServer(gActor).execute()
         var lastUpdate = lps.ts
