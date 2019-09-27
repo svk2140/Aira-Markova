@@ -48,7 +48,7 @@ fun initCommands()
         outputWordsMax = text.toInt()
     }
 
-    commands["generate"] = { text, cId ->
+    commands["g"] = { text, cId ->
         sendMessage(markov(), cId)
     }
 
@@ -81,7 +81,7 @@ fun loadSettings()
 
 fun saveSettings()
 {
-    Files.write(settings, ("keySize=$keySize,messageInterval=$messageInterval,outputWordsMax=$outputWordsMax").toByteArray(Charsets.UTF_8), StandardOpenOption.TRUNCATE_EXISTING)
+    Files.write(settings, ("keySize=$keySize,messageInterval=$messageInterval,outputWordsMax=$outputWordsMax,groupId=$groupId,token=$token").toByteArray(Charsets.UTF_8), StandardOpenOption.TRUNCATE_EXISTING)
 }
 
 fun initVk()
